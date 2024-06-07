@@ -72,7 +72,23 @@ To propose a change or spark a discussion open a PR and fill out the description
 
 We use [Thoughtworks Tech Radar](https://github.com/thoughtworks/build-your-own-radar) to generate our Tech Radar. The radar is backed by a single CSV file (that should nicely [render](https://help.github.com/articles/rendering-csv-and-tsv-data/)). CSV files are parsed using `d3.js` so please see their [documentation](https://d3-wiki.readthedocs.io/zh_CN/latest/CSV) for escaping rules.
 
-You can see the latest version at [techradar.englishlanguageitutoring.com](http://techradar.englishlanguageitutoring.com).
+You can see the latest version at [techradar.englishlanguageitutoring.com](https://techradar.englishlanguageitutoring.com).
+
+### Our Custom Radar Domain
+
+Our radar is accessed via the custom domain [techradar.englishlanguageitutoring.com](https://techradar.englishlanguageitutoring.com). This is acting as a simple redirect to the ThoughtWorks radar with our [`./radar.csv`](./radar.csv) as input.
+
+The redirect is accomplished using several AWS hosted resources:
+
+1. An S3 bucket.
+
+  Configured for static web hosting this lets us define the redirect rule that sends visitors to the ThoughtWorks radar pre-configured to load our own radar data.
+2. A CloudFront distribution.
+
+  This acts as a HTTPS middleman for the S3 bucket which otherwise would only be able to accept HTTP connections.
+3. A Route53 domain entry.
+
+  To connect our desired sub-domain to the CloudFront distribution and provide a nice, short, memorable URL from which to access our radar.
 
 ## Frequently Asked Questions
 
