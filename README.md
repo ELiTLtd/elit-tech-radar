@@ -66,7 +66,9 @@ We only use the Tech Radar to capture decisions relevant to our current and futu
 
 The radar is open for anyone within ELiT to contribute to. Before contributing please read the [Contributing Guidelines](.github/CONTRIBUTING.md).
 
-To propose a change or spark a discussion open a PR and fill out the description according to the template. New items will be reviewed by the team at the next Common Code Retro. To kick start the discussion post in the [`#dev` channel in Slack](https://team-elit.slack.com/archives/C017Z7RCS0Y).
+To propose a change or spark a discussion open an issue and fill out the description according to the template. New items will be reviewed by the team at the next Common Code Retro. To kick start the discussion post in the [`#dev` channel in Slack](https://team-elit.slack.com/archives/C017Z7RCS0Y).
+
+Once agreement has been reached on issues the author can proceed to raise a PR with the change to codify it in the radar.
 
 ## How is the Radar Built?
 
