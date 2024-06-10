@@ -84,13 +84,13 @@ The redirect is accomplished using several AWS hosted resources:
 
 1. An S3 bucket.
 
-  Configured for static web hosting this lets us define the redirect rule that sends visitors to the ThoughtWorks radar pre-configured to load our own radar data.
+   Configured for static web hosting this lets us define the redirect rule that sends visitors to the ThoughtWorks radar pre-configured to load our own radar data.
 2. A CloudFront distribution.
 
-  This acts as a HTTPS middleman for the S3 bucket which otherwise would only be able to accept HTTP connections.
+   This acts as a HTTPS middleman for the S3 bucket which otherwise would only be able to accept HTTP connections.
 3. A Route53 domain entry.
 
-  To connect our desired sub-domain to the CloudFront distribution and provide a nice, short, memorable URL from which to access our radar.
+   To connect our desired sub-domain to the CloudFront distribution and provide a nice, short, memorable URL from which to access our radar.
 
 ## Frequently Asked Questions
 
