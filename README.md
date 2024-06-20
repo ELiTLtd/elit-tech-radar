@@ -85,12 +85,66 @@ The redirect is accomplished using several AWS hosted resources:
 1. An S3 bucket.
 
    Configured for static web hosting this lets us define the redirect rule that sends visitors to the ThoughtWorks radar pre-configured to load our own radar data.
+
+   <details>
+     <summary>Bucket Configuration</summary>
+
+     The S3 Bucket, which is in our production account with the name `techradar.englishlanguageitutoring.com `, was configured as follows:
+
+     - Static web hosting enabled using `index.html` as the index document and the following redirection rules:
+
+        ```json
+        [
+            {
+                "Redirect": {
+                    "HostName": "radar.thoughtworks.com",
+                    "Protocol": "https",
+                    "ReplaceKeyWith": "?documentId=https%3A%2F%2Fraw.githubusercontent.com%2FELiTLtd%2Felit-tech-radar%2Fmain%2Fradar.csv"
+                }
+            }
+        ]
+        ```
+      - A bucket policy of:
+
+         ```json
+         {
+             "Version": "2012-10-17",
+             "Statement": [
+                 {
+                     "Sid": "PublicReadGetObject",
+                     "Effect": "Allow",
+                     "Principal": "*",
+                     "Action": "s3:GetObject",
+                     "Resource": "arn:aws:s3:::techradar.englishlanguageitutoring.com/*"
+                 }
+             ]
+         }
+         ```
+
+      The combination of these settings enables the bucket to serve as the redirect host without the need to add any objects to it.
+   </details>
 2. A CloudFront distribution.
 
    This acts as a HTTPS middleman for the S3 bucket which otherwise would only be able to accept HTTP connections.
+
+   <details>
+     <summary>CloudFront Setup</summary>
+
+     The CloudFront distribution is configured in our production account and has an origin matching the S3 buckets public URL. It was configured as:
+
+     - Being available from all edge locations with the alternate domain name of `techradar.englishlanguageitutoring.com`.
+     - Having the origin set to the S3 bucket with HTTP routing and no origin path.
+     - Using a ‘default’ behaviour entry to redirect HTTP traffic to HTTPS, use compression, and only allow `GET` and `HEAD` requests.
+   </details>
 3. A Route53 domain entry.
 
    To connect our desired sub-domain to the CloudFront distribution and provide a nice, short, memorable URL from which to access our radar.
+
+   <details>
+     <summary>Domain Entry</summary>
+
+     The Route 53 entry is in our `englishlanguageitutoring.com` zone and is a simple `A` record that points to the CloudFront distribution.
+   </details>
 
 ## Frequently Asked Questions
 
