@@ -34,11 +34,11 @@ Each quadrant is sub divided into four rings and each item on the radar is posit
   The technology/technique has the potential to be valuable. To get something into “Assess”:
 
   * Provide a compelling reason to assess the technology.
-  * Ideally, have plans for how to evaluate it in a reasonable time frame. 
+  * Ideally, have plans for how to evaluate it in a reasonable time frame.
   * Answer: “What would make us decide to move this to trial?”
 * **Trial**
 
-  The technology/technique has been assessed and has clear benefits. To move something into “Trial”: 
+  The technology/technique has been assessed and has clear benefits. To move something into “Trial”:
 
   * At least one team has plans to adopt this on a project that can support the risk.
   * Answer: “What would make us move this to Adopt?”
@@ -54,7 +54,7 @@ Each quadrant is sub divided into four rings and each item on the radar is posit
 
 ## What Goes on the Radar?
 
-Items on the Tech Radar should only be captured if the cost of change is high or the benefits of standardizing outweigh the drawbacks. Each item on the tech radar should be there for the the good of the entirety of ELiT. 
+Items on the Tech Radar should only be captured if the cost of change is high or the benefits of standardizing outweigh the drawbacks. Each item on the tech radar should be there for the the good of the entirety of ELiT.
 
 We are not producing a tech radar for the general tech community to consume, the tech radar is to guide our teams to build better software. Favour things that are going to be actioned and that fit our needs and tech stack rather over those that theoretically “could be useful.”
 
@@ -80,7 +80,7 @@ You can see the latest version at [techradar.englishlanguageitutoring.com](https
 
 Our radar is accessed via the custom domain [techradar.englishlanguageitutoring.com](https://techradar.englishlanguageitutoring.com). This is acting as a simple redirect to the ThoughtWorks radar with our [`./radar.csv`](./radar.csv) as input.
 
-The redirect is accomplished using several AWS hosted resources:
+The redirect is accomplished using several AWS hosted resources which are [managed via Terraform](./terraform/):
 
 1. An S3 bucket.
 
@@ -89,9 +89,9 @@ The redirect is accomplished using several AWS hosted resources:
    <details>
      <summary>Bucket Configuration</summary>
 
-     The S3 Bucket, which is in our production account with the name `techradar.englishlanguageitutoring.com `, was configured as follows:
+     The S3 Bucket, which is in our production account with the name `techradar.englishlanguageitutoring.com`, was configured as follows:
 
-     - Static web hosting enabled using `index.html` as the index document and the following redirection rules:
+     * Static web hosting enabled using `index.html` as the index document and the following redirection rules:
 
         ```json
         [
@@ -104,7 +104,8 @@ The redirect is accomplished using several AWS hosted resources:
             }
         ]
         ```
-      - A bucket policy of:
+
+      * A bucket policy of:
 
          ```json
          {
@@ -132,9 +133,9 @@ The redirect is accomplished using several AWS hosted resources:
 
      The CloudFront distribution is configured in our production account and has an origin matching the S3 buckets public URL. It was configured as:
 
-     - Being available from all edge locations with the alternate domain name of `techradar.englishlanguageitutoring.com`.
-     - Having the origin set to the S3 bucket with HTTP routing and no origin path.
-     - Using a ‘default’ behaviour entry to redirect HTTP traffic to HTTPS, use compression, and only allow `GET` and `HEAD` requests.
+     * Being available from all edge locations with the alternate domain name of `techradar.englishlanguageitutoring.com`.
+     * Having the origin set to the S3 bucket with HTTP routing and no origin path.
+     * Using a ‘default’ behaviour entry to redirect HTTP traffic to HTTPS, use compression, and only allow `GET` and `HEAD` requests.
    </details>
 3. A Route53 domain entry.
 
@@ -148,7 +149,7 @@ The redirect is accomplished using several AWS hosted resources:
 
 ## Frequently Asked Questions
 
-### It won't display properly!
+### It won't display properly
 
 Common causes of this happening are:
 
